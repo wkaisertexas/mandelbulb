@@ -1,0 +1,3784 @@
+Module {
+    types: {
+        [1]: Type {
+            name: None,
+            inner: Vector {
+                size: Quad,
+                kind: Float,
+                width: 4,
+            },
+        },
+        [2]: Type {
+            name: None,
+            inner: Vector {
+                size: Bi,
+                kind: Float,
+                width: 4,
+            },
+        },
+        [3]: Type {
+            name: Some(
+                "OutputStruct",
+            ),
+            inner: Struct {
+                members: [
+                    StructMember {
+                        name: Some(
+                            "pos",
+                        ),
+                        ty: [1],
+                        binding: Some(
+                            BuiltIn(
+                                Position {
+                                    invariant: false,
+                                },
+                            ),
+                        ),
+                        offset: 0,
+                    },
+                    StructMember {
+                        name: Some(
+                            "basePos",
+                        ),
+                        ty: [2],
+                        binding: Some(
+                            Location {
+                                location: 0,
+                                interpolation: Some(
+                                    Perspective,
+                                ),
+                                sampling: Some(
+                                    Center,
+                                ),
+                            },
+                        ),
+                        offset: 16,
+                    },
+                ],
+                span: 32,
+            },
+        },
+        [4]: Type {
+            name: None,
+            inner: Scalar {
+                kind: Float,
+                width: 4,
+            },
+        },
+        [5]: Type {
+            name: Some(
+                "TimeBuffer",
+            ),
+            inner: Struct {
+                members: [
+                    StructMember {
+                        name: Some(
+                            "time",
+                        ),
+                        ty: [4],
+                        binding: None,
+                        offset: 0,
+                    },
+                ],
+                span: 4,
+            },
+        },
+        [6]: Type {
+            name: None,
+            inner: Vector {
+                size: Tri,
+                kind: Float,
+                width: 4,
+            },
+        },
+        [7]: Type {
+            name: None,
+            inner: Scalar {
+                kind: Sint,
+                width: 4,
+            },
+        },
+    },
+    special_types: SpecialTypes {
+        ray_desc: None,
+        ray_intersection: None,
+    },
+    constants: {},
+    global_variables: {
+        [1]: GlobalVariable {
+            name: Some(
+                "timeBuffer",
+            ),
+            space: Uniform,
+            binding: Some(
+                ResourceBinding {
+                    group: 0,
+                    binding: 0,
+                },
+            ),
+            ty: [5],
+            init: None,
+        },
+    },
+    const_expressions: {},
+    functions: {
+        [1]: Function {
+            name: Some(
+                "map",
+            ),
+            arguments: [
+                FunctionArgument {
+                    name: Some(
+                        "pos",
+                    ),
+                    ty: [6],
+                    binding: None,
+                },
+                FunctionArgument {
+                    name: Some(
+                        "in_out",
+                    ),
+                    ty: [6],
+                    binding: None,
+                },
+            ],
+            result: Some(
+                FunctionResult {
+                    ty: [1],
+                    binding: None,
+                },
+            ),
+            local_variables: {
+                [1]: LocalVariable {
+                    name: Some(
+                        "z",
+                    ),
+                    ty: [6],
+                    init: None,
+                },
+                [2]: LocalVariable {
+                    name: Some(
+                        "c",
+                    ),
+                    ty: [6],
+                    init: None,
+                },
+                [3]: LocalVariable {
+                    name: Some(
+                        "trap",
+                    ),
+                    ty: [6],
+                    init: None,
+                },
+                [4]: LocalVariable {
+                    name: Some(
+                        "dr",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+                [5]: LocalVariable {
+                    name: Some(
+                        "r",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+                [6]: LocalVariable {
+                    name: Some(
+                        "numIter",
+                    ),
+                    ty: [7],
+                    init: None,
+                },
+                [7]: LocalVariable {
+                    name: Some(
+                        "i",
+                    ),
+                    ty: [7],
+                    init: None,
+                },
+                [8]: LocalVariable {
+                    name: Some(
+                        "theta",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+                [9]: LocalVariable {
+                    name: Some(
+                        "phi",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+                [10]: LocalVariable {
+                    name: Some(
+                        "zr",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+            },
+            expressions: {
+                [1]: FunctionArgument(
+                    0,
+                ),
+                [2]: FunctionArgument(
+                    1,
+                ),
+                [3]: Math {
+                    fun: Length,
+                    arg: [1],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [4]: Literal(
+                    F32(
+                        1.2,
+                    ),
+                ),
+                [5]: Binary {
+                    op: Subtract,
+                    left: [3],
+                    right: [4],
+                },
+                [6]: Literal(
+                    F32(
+                        0.2,
+                    ),
+                ),
+                [7]: Binary {
+                    op: Greater,
+                    left: [5],
+                    right: [6],
+                },
+                [8]: Compose {
+                    ty: [1],
+                    components: [
+                        [2],
+                        [5],
+                    ],
+                },
+                [9]: Literal(
+                    F32(
+                        8.0,
+                    ),
+                ),
+                [10]: Literal(
+                    F32(
+                        2.0,
+                    ),
+                ),
+                [11]: Literal(
+                    F32(
+                        0.15,
+                    ),
+                ),
+                [12]: GlobalVariable(
+                    [1],
+                ),
+                [13]: AccessIndex {
+                    base: [12],
+                    index: 0,
+                },
+                [14]: Load {
+                    pointer: [13],
+                },
+                [15]: Binary {
+                    op: Multiply,
+                    left: [11],
+                    right: [14],
+                },
+                [16]: Math {
+                    fun: Sin,
+                    arg: [15],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [17]: Binary {
+                    op: Multiply,
+                    left: [10],
+                    right: [16],
+                },
+                [18]: Binary {
+                    op: Add,
+                    left: [9],
+                    right: [17],
+                },
+                [19]: LocalVariable(
+                    [1],
+                ),
+                [20]: LocalVariable(
+                    [2],
+                ),
+                [21]: Literal(
+                    F32(
+                        1e20,
+                    ),
+                ),
+                [22]: Splat {
+                    size: Tri,
+                    value: [21],
+                },
+                [23]: LocalVariable(
+                    [3],
+                ),
+                [24]: Literal(
+                    F32(
+                        1.0,
+                    ),
+                ),
+                [25]: LocalVariable(
+                    [4],
+                ),
+                [26]: Load {
+                    pointer: [19],
+                },
+                [27]: Math {
+                    fun: Length,
+                    arg: [26],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [28]: LocalVariable(
+                    [5],
+                ),
+                [29]: Literal(
+                    I32(
+                        0,
+                    ),
+                ),
+                [30]: LocalVariable(
+                    [6],
+                ),
+                [31]: Literal(
+                    I32(
+                        0,
+                    ),
+                ),
+                [32]: LocalVariable(
+                    [7],
+                ),
+                [33]: Load {
+                    pointer: [32],
+                },
+                [34]: Literal(
+                    I32(
+                        100,
+                    ),
+                ),
+                [35]: Binary {
+                    op: Less,
+                    left: [33],
+                    right: [34],
+                },
+                [36]: Load {
+                    pointer: [19],
+                },
+                [37]: Math {
+                    fun: Length,
+                    arg: [36],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [38]: Load {
+                    pointer: [28],
+                },
+                [39]: Literal(
+                    F32(
+                        2.0,
+                    ),
+                ),
+                [40]: Binary {
+                    op: Greater,
+                    left: [38],
+                    right: [39],
+                },
+                [41]: AccessIndex {
+                    base: [19],
+                    index: 2,
+                },
+                [42]: Load {
+                    pointer: [41],
+                },
+                [43]: Load {
+                    pointer: [28],
+                },
+                [44]: Binary {
+                    op: Divide,
+                    left: [42],
+                    right: [43],
+                },
+                [45]: Math {
+                    fun: Acos,
+                    arg: [44],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [46]: LocalVariable(
+                    [8],
+                ),
+                [47]: AccessIndex {
+                    base: [19],
+                    index: 1,
+                },
+                [48]: Load {
+                    pointer: [47],
+                },
+                [49]: AccessIndex {
+                    base: [19],
+                    index: 0,
+                },
+                [50]: Load {
+                    pointer: [49],
+                },
+                [51]: Math {
+                    fun: Atan2,
+                    arg: [48],
+                    arg1: Some(
+                        [50],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [52]: LocalVariable(
+                    [9],
+                ),
+                [53]: Load {
+                    pointer: [28],
+                },
+                [54]: Literal(
+                    F32(
+                        1.0,
+                    ),
+                ),
+                [55]: Binary {
+                    op: Subtract,
+                    left: [18],
+                    right: [54],
+                },
+                [56]: Math {
+                    fun: Pow,
+                    arg: [53],
+                    arg1: Some(
+                        [55],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [57]: Binary {
+                    op: Multiply,
+                    left: [56],
+                    right: [18],
+                },
+                [58]: Load {
+                    pointer: [25],
+                },
+                [59]: Binary {
+                    op: Multiply,
+                    left: [57],
+                    right: [58],
+                },
+                [60]: Literal(
+                    F32(
+                        1.0,
+                    ),
+                ),
+                [61]: Binary {
+                    op: Add,
+                    left: [59],
+                    right: [60],
+                },
+                [62]: Load {
+                    pointer: [28],
+                },
+                [63]: Math {
+                    fun: Pow,
+                    arg: [62],
+                    arg1: Some(
+                        [18],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [64]: LocalVariable(
+                    [10],
+                ),
+                [65]: Load {
+                    pointer: [46],
+                },
+                [66]: Binary {
+                    op: Multiply,
+                    left: [65],
+                    right: [18],
+                },
+                [67]: Load {
+                    pointer: [52],
+                },
+                [68]: Binary {
+                    op: Multiply,
+                    left: [67],
+                    right: [18],
+                },
+                [69]: Load {
+                    pointer: [64],
+                },
+                [70]: Load {
+                    pointer: [46],
+                },
+                [71]: Math {
+                    fun: Sin,
+                    arg: [70],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [72]: Binary {
+                    op: Multiply,
+                    left: [69],
+                    right: [71],
+                },
+                [73]: Load {
+                    pointer: [52],
+                },
+                [74]: Math {
+                    fun: Sin,
+                    arg: [73],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [75]: Binary {
+                    op: Multiply,
+                    left: [72],
+                    right: [74],
+                },
+                [76]: Load {
+                    pointer: [64],
+                },
+                [77]: Load {
+                    pointer: [46],
+                },
+                [78]: Math {
+                    fun: Sin,
+                    arg: [77],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [79]: Binary {
+                    op: Multiply,
+                    left: [76],
+                    right: [78],
+                },
+                [80]: Load {
+                    pointer: [52],
+                },
+                [81]: Math {
+                    fun: Cos,
+                    arg: [80],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [82]: Binary {
+                    op: Multiply,
+                    left: [79],
+                    right: [81],
+                },
+                [83]: Load {
+                    pointer: [64],
+                },
+                [84]: Load {
+                    pointer: [46],
+                },
+                [85]: Math {
+                    fun: Cos,
+                    arg: [84],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [86]: Binary {
+                    op: Multiply,
+                    left: [83],
+                    right: [85],
+                },
+                [87]: Compose {
+                    ty: [6],
+                    components: [
+                        [75],
+                        [82],
+                        [86],
+                    ],
+                },
+                [88]: Load {
+                    pointer: [20],
+                },
+                [89]: Load {
+                    pointer: [19],
+                },
+                [90]: Binary {
+                    op: Add,
+                    left: [89],
+                    right: [88],
+                },
+                [91]: AccessIndex {
+                    base: [23],
+                    index: 0,
+                },
+                [92]: AccessIndex {
+                    base: [19],
+                    index: 2,
+                },
+                [93]: Load {
+                    pointer: [92],
+                },
+                [94]: Math {
+                    fun: Abs,
+                    arg: [93],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [95]: Literal(
+                    F32(
+                        0.1,
+                    ),
+                ),
+                [96]: Math {
+                    fun: Pow,
+                    arg: [94],
+                    arg1: Some(
+                        [95],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [97]: AccessIndex {
+                    base: [23],
+                    index: 0,
+                },
+                [98]: Load {
+                    pointer: [97],
+                },
+                [99]: Math {
+                    fun: Min,
+                    arg: [96],
+                    arg1: Some(
+                        [98],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [100]: AccessIndex {
+                    base: [23],
+                    index: 1,
+                },
+                [101]: AccessIndex {
+                    base: [19],
+                    index: 0,
+                },
+                [102]: Load {
+                    pointer: [101],
+                },
+                [103]: Math {
+                    fun: Abs,
+                    arg: [102],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [104]: Literal(
+                    F32(
+                        0.15,
+                    ),
+                ),
+                [105]: Binary {
+                    op: Subtract,
+                    left: [103],
+                    right: [104],
+                },
+                [106]: AccessIndex {
+                    base: [23],
+                    index: 1,
+                },
+                [107]: Load {
+                    pointer: [106],
+                },
+                [108]: Math {
+                    fun: Min,
+                    arg: [105],
+                    arg1: Some(
+                        [107],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [109]: AccessIndex {
+                    base: [23],
+                    index: 2,
+                },
+                [110]: Load {
+                    pointer: [19],
+                },
+                [111]: Math {
+                    fun: Length,
+                    arg: [110],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [112]: AccessIndex {
+                    base: [23],
+                    index: 2,
+                },
+                [113]: Load {
+                    pointer: [112],
+                },
+                [114]: Math {
+                    fun: Min,
+                    arg: [111],
+                    arg1: Some(
+                        [113],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [115]: Literal(
+                    I32(
+                        1,
+                    ),
+                ),
+                [116]: Load {
+                    pointer: [32],
+                },
+                [117]: Binary {
+                    op: Add,
+                    left: [116],
+                    right: [115],
+                },
+                [118]: Literal(
+                    F32(
+                        0.5,
+                    ),
+                ),
+                [119]: Load {
+                    pointer: [28],
+                },
+                [120]: Math {
+                    fun: Log,
+                    arg: [119],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [121]: Binary {
+                    op: Multiply,
+                    left: [118],
+                    right: [120],
+                },
+                [122]: Load {
+                    pointer: [28],
+                },
+                [123]: Binary {
+                    op: Multiply,
+                    left: [121],
+                    right: [122],
+                },
+                [124]: Load {
+                    pointer: [25],
+                },
+                [125]: Binary {
+                    op: Divide,
+                    left: [123],
+                    right: [124],
+                },
+                [126]: Load {
+                    pointer: [23],
+                },
+                [127]: Compose {
+                    ty: [1],
+                    components: [
+                        [126],
+                        [125],
+                    ],
+                },
+            },
+            named_expressions: {
+                [1]: "pos",
+                [2]: "in_out",
+                [5]: "thresh",
+                [18]: "power",
+                [125]: "distance",
+            },
+            body: Block {
+                body: [
+                    Emit(
+                        [3..3],
+                    ),
+                    Emit(
+                        [5..5],
+                    ),
+                    Emit(
+                        [7..7],
+                    ),
+                    If {
+                        condition: [7],
+                        accept: Block {
+                            body: [
+                                Emit(
+                                    [8..8],
+                                ),
+                                Return {
+                                    value: Some(
+                                        [8],
+                                    ),
+                                },
+                            ],
+                            span_info: [
+                                Span {
+                                    start: 932,
+                                    end: 953,
+                                },
+                                Span {
+                                    start: 925,
+                                    end: 954,
+                                },
+                            ],
+                        },
+                        reject: Block {
+                            body: [],
+                            span_info: [],
+                        },
+                    },
+                    Emit(
+                        [13..18],
+                    ),
+                    Store {
+                        pointer: [19],
+                        value: [1],
+                    },
+                    Store {
+                        pointer: [20],
+                        value: [1],
+                    },
+                    Emit(
+                        [22..22],
+                    ),
+                    Store {
+                        pointer: [23],
+                        value: [22],
+                    },
+                    Store {
+                        pointer: [25],
+                        value: [24],
+                    },
+                    Emit(
+                        [26..27],
+                    ),
+                    Store {
+                        pointer: [28],
+                        value: [27],
+                    },
+                    Store {
+                        pointer: [30],
+                        value: [29],
+                    },
+                    Store {
+                        pointer: [32],
+                        value: [31],
+                    },
+                    Loop {
+                        body: Block {
+                            body: [
+                                Emit(
+                                    [33..33],
+                                ),
+                                Emit(
+                                    [35..35],
+                                ),
+                                If {
+                                    condition: [35],
+                                    accept: Block {
+                                        body: [],
+                                        span_info: [],
+                                    },
+                                    reject: Block {
+                                        body: [
+                                            Break,
+                                        ],
+                                        span_info: [
+                                            Span {
+                                                start: 1152,
+                                                end: 1161,
+                                            },
+                                        ],
+                                    },
+                                },
+                                Block(
+                                    Block {
+                                        body: [
+                                            Emit(
+                                                [36..37],
+                                            ),
+                                            Store {
+                                                pointer: [28],
+                                                value: [37],
+                                            },
+                                            Emit(
+                                                [38..38],
+                                            ),
+                                            Emit(
+                                                [40..40],
+                                            ),
+                                            If {
+                                                condition: [40],
+                                                accept: Block {
+                                                    body: [
+                                                        Break,
+                                                    ],
+                                                    span_info: [
+                                                        Span {
+                                                            start: 1239,
+                                                            end: 1245,
+                                                        },
+                                                    ],
+                                                },
+                                                reject: Block {
+                                                    body: [],
+                                                    span_info: [],
+                                                },
+                                            },
+                                            Emit(
+                                                [41..45],
+                                            ),
+                                            Store {
+                                                pointer: [46],
+                                                value: [45],
+                                            },
+                                            Emit(
+                                                [47..51],
+                                            ),
+                                            Store {
+                                                pointer: [52],
+                                                value: [51],
+                                            },
+                                            Emit(
+                                                [53..53],
+                                            ),
+                                            Emit(
+                                                [55..59],
+                                            ),
+                                            Emit(
+                                                [61..61],
+                                            ),
+                                            Store {
+                                                pointer: [25],
+                                                value: [61],
+                                            },
+                                            Emit(
+                                                [62..63],
+                                            ),
+                                            Store {
+                                                pointer: [64],
+                                                value: [63],
+                                            },
+                                            Emit(
+                                                [65..66],
+                                            ),
+                                            Store {
+                                                pointer: [46],
+                                                value: [66],
+                                            },
+                                            Emit(
+                                                [67..68],
+                                            ),
+                                            Store {
+                                                pointer: [52],
+                                                value: [68],
+                                            },
+                                            Emit(
+                                                [69..87],
+                                            ),
+                                            Store {
+                                                pointer: [19],
+                                                value: [87],
+                                            },
+                                            Emit(
+                                                [88..90],
+                                            ),
+                                            Store {
+                                                pointer: [19],
+                                                value: [90],
+                                            },
+                                            Emit(
+                                                [91..94],
+                                            ),
+                                            Emit(
+                                                [96..99],
+                                            ),
+                                            Store {
+                                                pointer: [91],
+                                                value: [99],
+                                            },
+                                            Emit(
+                                                [100..103],
+                                            ),
+                                            Emit(
+                                                [105..108],
+                                            ),
+                                            Store {
+                                                pointer: [100],
+                                                value: [108],
+                                            },
+                                            Emit(
+                                                [109..114],
+                                            ),
+                                            Store {
+                                                pointer: [109],
+                                                value: [114],
+                                            },
+                                        ],
+                                        span_info: [
+                                            Span {
+                                                start: 1176,
+                                                end: 1182,
+                                            },
+                                            Span {
+                                                start: 1172,
+                                                end: 1185,
+                                            },
+                                            Span {
+                                                start: 0,
+                                                end: 0,
+                                            },
+                                            Span {
+                                                start: 1228,
+                                                end: 1235,
+                                            },
+                                            Span {
+                                                start: 1225,
+                                                end: 1245,
+                                            },
+                                            Span {
+                                                start: 1307,
+                                                end: 1319,
+                                            },
+                                            Span {
+                                                start: 1290,
+                                                end: 1321,
+                                            },
+                                            Span {
+                                                start: 1341,
+                                                end: 1355,
+                                            },
+                                            Span {
+                                                start: 1326,
+                                                end: 1357,
+                                            },
+                                            Span {
+                                                start: 0,
+                                                end: 0,
+                                            },
+                                            Span {
+                                                start: 1368,
+                                                end: 1400,
+                                            },
+                                            Span {
+                                                start: 1368,
+                                                end: 1406,
+                                            },
+                                            Span {
+                                                start: 1363,
+                                                end: 1406,
+                                            },
+                                            Span {
+                                                start: 1422,
+                                                end: 1425,
+                                            },
+                                            Span {
+                                                start: 1413,
+                                                end: 1436,
+                                            },
+                                            Span {
+                                                start: 1441,
+                                                end: 1455,
+                                            },
+                                            Span {
+                                                start: 1441,
+                                                end: 1455,
+                                            },
+                                            Span {
+                                                start: 1461,
+                                                end: 1473,
+                                            },
+                                            Span {
+                                                start: 1461,
+                                                end: 1473,
+                                            },
+                                            Span {
+                                                start: 1484,
+                                                end: 1586,
+                                            },
+                                            Span {
+                                                start: 1480,
+                                                end: 1586,
+                                            },
+                                            Span {
+                                                start: 1592,
+                                                end: 1598,
+                                            },
+                                            Span {
+                                                start: 1592,
+                                                end: 1598,
+                                            },
+                                            Span {
+                                                start: 1720,
+                                                end: 1744,
+                                            },
+                                            Span {
+                                                start: 1729,
+                                                end: 1759,
+                                            },
+                                            Span {
+                                                start: 1720,
+                                                end: 1760,
+                                            },
+                                            Span {
+                                                start: 1766,
+                                                end: 1786,
+                                            },
+                                            Span {
+                                                start: 1775,
+                                                end: 1802,
+                                            },
+                                            Span {
+                                                start: 1766,
+                                                end: 1803,
+                                            },
+                                            Span {
+                                                start: 1809,
+                                                end: 1839,
+                                            },
+                                            Span {
+                                                start: 1809,
+                                                end: 1840,
+                                            },
+                                        ],
+                                    },
+                                ),
+                            ],
+                            span_info: [
+                                Span {
+                                    start: 0,
+                                    end: 0,
+                                },
+                                Span {
+                                    start: 1153,
+                                    end: 1160,
+                                },
+                                Span {
+                                    start: 1152,
+                                    end: 1161,
+                                },
+                                Span {
+                                    start: 1166,
+                                    end: 1841,
+                                },
+                            ],
+                        },
+                        continuing: Block {
+                            body: [
+                                Emit(
+                                    [116..117],
+                                ),
+                                Store {
+                                    pointer: [32],
+                                    value: [117],
+                                },
+                            ],
+                            span_info: [
+                                Span {
+                                    start: 1162,
+                                    end: 1165,
+                                },
+                                Span {
+                                    start: 1162,
+                                    end: 1165,
+                                },
+                            ],
+                        },
+                        break_if: None,
+                    },
+                    Emit(
+                        [119..125],
+                    ),
+                    Emit(
+                        [126..127],
+                    ),
+                    Return {
+                        value: Some(
+                            [127],
+                        ),
+                    },
+                ],
+                span_info: [
+                    Span {
+                        start: 879,
+                        end: 885,
+                    },
+                    Span {
+                        start: 879,
+                        end: 896,
+                    },
+                    Span {
+                        start: 904,
+                        end: 916,
+                    },
+                    Span {
+                        start: 901,
+                        end: 954,
+                    },
+                    Span {
+                        start: 974,
+                        end: 1013,
+                    },
+                    Span {
+                        start: 1017,
+                        end: 1029,
+                    },
+                    Span {
+                        start: 1032,
+                        end: 1044,
+                    },
+                    Span {
+                        start: 1059,
+                        end: 1070,
+                    },
+                    Span {
+                        start: 1048,
+                        end: 1071,
+                    },
+                    Span {
+                        start: 1075,
+                        end: 1094,
+                    },
+                    Span {
+                        start: 1105,
+                        end: 1111,
+                    },
+                    Span {
+                        start: 1097,
+                        end: 1115,
+                    },
+                    Span {
+                        start: 1119,
+                        end: 1135,
+                    },
+                    Span {
+                        start: 1142,
+                        end: 1152,
+                    },
+                    Span {
+                        start: 1138,
+                        end: 1841,
+                    },
+                    Span {
+                        start: 1865,
+                        end: 1886,
+                    },
+                    Span {
+                        start: 1954,
+                        end: 1975,
+                    },
+                    Span {
+                        start: 1947,
+                        end: 1976,
+                    },
+                ],
+            },
+        },
+        [2]: Function {
+            name: Some(
+                "getNormal",
+            ),
+            arguments: [
+                FunctionArgument {
+                    name: Some(
+                        "pos",
+                    ),
+                    ty: [6],
+                    binding: None,
+                },
+            ],
+            result: Some(
+                FunctionResult {
+                    ty: [6],
+                    binding: None,
+                },
+            ),
+            local_variables: {},
+            expressions: {
+                [1]: FunctionArgument(
+                    0,
+                ),
+                [2]: Literal(
+                    F32(
+                        1e-7,
+                    ),
+                ),
+                [3]: Literal(
+                    F32(
+                        1.0,
+                    ),
+                ),
+                [4]: Literal(
+                    F32(
+                        -1.0,
+                    ),
+                ),
+                [5]: Compose {
+                    ty: [2],
+                    components: [
+                        [3],
+                        [4],
+                    ],
+                },
+                [6]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [7]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [8]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [9]: Compose {
+                    ty: [6],
+                    components: [
+                        [6],
+                        [7],
+                        [8],
+                    ],
+                },
+                [10]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        X,
+                        Y,
+                        Y,
+                        X,
+                    ],
+                },
+                [11]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        X,
+                        Y,
+                        Y,
+                        X,
+                    ],
+                },
+                [12]: Binary {
+                    op: Multiply,
+                    left: [11],
+                    right: [2],
+                },
+                [13]: Binary {
+                    op: Add,
+                    left: [1],
+                    right: [12],
+                },
+                [14]: CallResult(
+                    [1],
+                ),
+                [15]: Literal(
+                    I32(
+                        3,
+                    ),
+                ),
+                [16]: AccessIndex {
+                    base: [14],
+                    index: 3,
+                },
+                [17]: Binary {
+                    op: Multiply,
+                    left: [10],
+                    right: [16],
+                },
+                [18]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        Y,
+                        Y,
+                        X,
+                        X,
+                    ],
+                },
+                [19]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        Y,
+                        Y,
+                        X,
+                        X,
+                    ],
+                },
+                [20]: Binary {
+                    op: Multiply,
+                    left: [19],
+                    right: [2],
+                },
+                [21]: Binary {
+                    op: Add,
+                    left: [1],
+                    right: [20],
+                },
+                [22]: CallResult(
+                    [1],
+                ),
+                [23]: Literal(
+                    I32(
+                        3,
+                    ),
+                ),
+                [24]: AccessIndex {
+                    base: [22],
+                    index: 3,
+                },
+                [25]: Binary {
+                    op: Multiply,
+                    left: [18],
+                    right: [24],
+                },
+                [26]: Binary {
+                    op: Add,
+                    left: [17],
+                    right: [25],
+                },
+                [27]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        Y,
+                        X,
+                        Y,
+                        X,
+                    ],
+                },
+                [28]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        Y,
+                        X,
+                        Y,
+                        X,
+                    ],
+                },
+                [29]: Binary {
+                    op: Multiply,
+                    left: [28],
+                    right: [2],
+                },
+                [30]: Binary {
+                    op: Add,
+                    left: [1],
+                    right: [29],
+                },
+                [31]: CallResult(
+                    [1],
+                ),
+                [32]: Literal(
+                    I32(
+                        3,
+                    ),
+                ),
+                [33]: AccessIndex {
+                    base: [31],
+                    index: 3,
+                },
+                [34]: Binary {
+                    op: Multiply,
+                    left: [27],
+                    right: [33],
+                },
+                [35]: Binary {
+                    op: Add,
+                    left: [26],
+                    right: [34],
+                },
+                [36]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        X,
+                        X,
+                        X,
+                        X,
+                    ],
+                },
+                [37]: Swizzle {
+                    size: Tri,
+                    vector: [5],
+                    pattern: [
+                        X,
+                        X,
+                        X,
+                        X,
+                    ],
+                },
+                [38]: Binary {
+                    op: Multiply,
+                    left: [37],
+                    right: [2],
+                },
+                [39]: Binary {
+                    op: Add,
+                    left: [1],
+                    right: [38],
+                },
+                [40]: CallResult(
+                    [1],
+                ),
+                [41]: Literal(
+                    I32(
+                        3,
+                    ),
+                ),
+                [42]: AccessIndex {
+                    base: [40],
+                    index: 3,
+                },
+                [43]: Binary {
+                    op: Multiply,
+                    left: [36],
+                    right: [42],
+                },
+                [44]: Binary {
+                    op: Add,
+                    left: [35],
+                    right: [43],
+                },
+                [45]: Math {
+                    fun: Normalize,
+                    arg: [44],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+            },
+            named_expressions: {
+                [1]: "pos",
+                [2]: "h",
+                [5]: "k",
+                [9]: "zero",
+            },
+            body: Block {
+                body: [
+                    Emit(
+                        [5..5],
+                    ),
+                    Emit(
+                        [9..9],
+                    ),
+                    Emit(
+                        [10..13],
+                    ),
+                    Call {
+                        function: [1],
+                        arguments: [
+                            [13],
+                            [9],
+                        ],
+                        result: Some(
+                            [14],
+                        ),
+                    },
+                    Emit(
+                        [16..21],
+                    ),
+                    Call {
+                        function: [1],
+                        arguments: [
+                            [21],
+                            [9],
+                        ],
+                        result: Some(
+                            [22],
+                        ),
+                    },
+                    Emit(
+                        [24..30],
+                    ),
+                    Call {
+                        function: [1],
+                        arguments: [
+                            [30],
+                            [9],
+                        ],
+                        result: Some(
+                            [31],
+                        ),
+                    },
+                    Emit(
+                        [33..39],
+                    ),
+                    Call {
+                        function: [1],
+                        arguments: [
+                            [39],
+                            [9],
+                        ],
+                        result: Some(
+                            [40],
+                        ),
+                    },
+                    Emit(
+                        [42..45],
+                    ),
+                    Return {
+                        value: Some(
+                            [45],
+                        ),
+                    },
+                ],
+                span_info: [
+                    Span {
+                        start: 428,
+                        end: 444,
+                    },
+                    Span {
+                        start: 460,
+                        end: 480,
+                    },
+                    Span {
+                        start: 507,
+                        end: 534,
+                    },
+                    Span {
+                        start: 515,
+                        end: 541,
+                    },
+                    Span {
+                        start: 507,
+                        end: 578,
+                    },
+                    Span {
+                        start: 559,
+                        end: 585,
+                    },
+                    Span {
+                        start: 507,
+                        end: 622,
+                    },
+                    Span {
+                        start: 603,
+                        end: 629,
+                    },
+                    Span {
+                        start: 507,
+                        end: 666,
+                    },
+                    Span {
+                        start: 647,
+                        end: 673,
+                    },
+                    Span {
+                        start: 492,
+                        end: 676,
+                    },
+                    Span {
+                        start: 485,
+                        end: 681,
+                    },
+                ],
+            },
+        },
+        [3]: Function {
+            name: Some(
+                "hash",
+            ),
+            arguments: [
+                FunctionArgument {
+                    name: Some(
+                        "p",
+                    ),
+                    ty: [4],
+                    binding: None,
+                },
+            ],
+            result: Some(
+                FunctionResult {
+                    ty: [4],
+                    binding: None,
+                },
+            ),
+            local_variables: {},
+            expressions: {
+                [1]: FunctionArgument(
+                    0,
+                ),
+                [2]: Splat {
+                    size: Bi,
+                    value: [1],
+                },
+                [3]: Literal(
+                    F32(
+                        12.9898,
+                    ),
+                ),
+                [4]: Literal(
+                    F32(
+                        78.233,
+                    ),
+                ),
+                [5]: Compose {
+                    ty: [2],
+                    components: [
+                        [3],
+                        [4],
+                    ],
+                },
+                [6]: Math {
+                    fun: Dot,
+                    arg: [2],
+                    arg1: Some(
+                        [5],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [7]: Math {
+                    fun: Sin,
+                    arg: [6],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+                [8]: Literal(
+                    F32(
+                        43758.547,
+                    ),
+                ),
+                [9]: Binary {
+                    op: Multiply,
+                    left: [7],
+                    right: [8],
+                },
+                [10]: Math {
+                    fun: Fract,
+                    arg: [9],
+                    arg1: None,
+                    arg2: None,
+                    arg3: None,
+                },
+            },
+            named_expressions: {
+                [1]: "p",
+            },
+            body: Block {
+                body: [
+                    Emit(
+                        [2..2],
+                    ),
+                    Emit(
+                        [5..7],
+                    ),
+                    Emit(
+                        [9..10],
+                    ),
+                    Return {
+                        value: Some(
+                            [10],
+                        ),
+                    },
+                ],
+                span_info: [
+                    Span {
+                        start: 762,
+                        end: 770,
+                    },
+                    Span {
+                        start: 754,
+                        end: 794,
+                    },
+                    Span {
+                        start: 748,
+                        end: 809,
+                    },
+                    Span {
+                        start: 741,
+                        end: 811,
+                    },
+                ],
+            },
+        },
+        [4]: Function {
+            name: Some(
+                "ambientOcclusion",
+            ),
+            arguments: [
+                FunctionArgument {
+                    name: Some(
+                        "pos",
+                    ),
+                    ty: [6],
+                    binding: None,
+                },
+                FunctionArgument {
+                    name: Some(
+                        "normal",
+                    ),
+                    ty: [6],
+                    binding: None,
+                },
+            ],
+            result: Some(
+                FunctionResult {
+                    ty: [4],
+                    binding: None,
+                },
+            ),
+            local_variables: {
+                [1]: LocalVariable {
+                    name: Some(
+                        "diff",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+                [2]: LocalVariable {
+                    name: Some(
+                        "i",
+                    ),
+                    ty: [7],
+                    init: None,
+                },
+            },
+            expressions: {
+                [1]: FunctionArgument(
+                    0,
+                ),
+                [2]: FunctionArgument(
+                    1,
+                ),
+                [3]: Literal(
+                    F32(
+                        0.46,
+                    ),
+                ),
+                [4]: Literal(
+                    I32(
+                        12,
+                    ),
+                ),
+                [5]: Literal(
+                    F32(
+                        0.07,
+                    ),
+                ),
+                [6]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [7]: LocalVariable(
+                    [1],
+                ),
+                [8]: Literal(
+                    I32(
+                        0,
+                    ),
+                ),
+                [9]: LocalVariable(
+                    [2],
+                ),
+                [10]: Load {
+                    pointer: [9],
+                },
+                [11]: Binary {
+                    op: Less,
+                    left: [10],
+                    right: [4],
+                },
+                [12]: Load {
+                    pointer: [9],
+                },
+                [13]: As {
+                    expr: [12],
+                    kind: Float,
+                    convert: Some(
+                        4,
+                    ),
+                },
+                [14]: CallResult(
+                    [3],
+                ),
+                [15]: Binary {
+                    op: Multiply,
+                    left: [5],
+                    right: [14],
+                },
+                [16]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [17]: Binary {
+                    op: Multiply,
+                    left: [15],
+                    right: [2],
+                },
+                [18]: Binary {
+                    op: Add,
+                    left: [1],
+                    right: [17],
+                },
+                [19]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [20]: Splat {
+                    size: Tri,
+                    value: [19],
+                },
+                [21]: CallResult(
+                    [1],
+                ),
+                [22]: Literal(
+                    I32(
+                        3,
+                    ),
+                ),
+                [23]: AccessIndex {
+                    base: [21],
+                    index: 3,
+                },
+                [24]: Math {
+                    fun: Max,
+                    arg: [16],
+                    arg1: Some(
+                        [23],
+                    ),
+                    arg2: None,
+                    arg3: None,
+                },
+                [25]: Binary {
+                    op: Subtract,
+                    left: [15],
+                    right: [24],
+                },
+                [26]: Binary {
+                    op: Divide,
+                    left: [25],
+                    right: [5],
+                },
+                [27]: Load {
+                    pointer: [7],
+                },
+                [28]: Binary {
+                    op: Add,
+                    left: [27],
+                    right: [26],
+                },
+                [29]: Literal(
+                    I32(
+                        1,
+                    ),
+                ),
+                [30]: Load {
+                    pointer: [9],
+                },
+                [31]: Binary {
+                    op: Add,
+                    left: [30],
+                    right: [29],
+                },
+                [32]: Load {
+                    pointer: [7],
+                },
+                [33]: As {
+                    expr: [4],
+                    kind: Float,
+                    convert: Some(
+                        4,
+                    ),
+                },
+                [34]: Binary {
+                    op: Divide,
+                    left: [32],
+                    right: [33],
+                },
+                [35]: Literal(
+                    F32(
+                        1.0,
+                    ),
+                ),
+                [36]: Binary {
+                    op: Divide,
+                    left: [34],
+                    right: [3],
+                },
+                [37]: Binary {
+                    op: Subtract,
+                    left: [35],
+                    right: [36],
+                },
+                [38]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [39]: Literal(
+                    F32(
+                        1.0,
+                    ),
+                ),
+                [40]: Math {
+                    fun: Clamp,
+                    arg: [38],
+                    arg1: Some(
+                        [39],
+                    ),
+                    arg2: Some(
+                        [37],
+                    ),
+                    arg3: None,
+                },
+            },
+            named_expressions: {
+                [1]: "pos",
+                [2]: "normal",
+                [3]: "FALLOFF",
+                [4]: "N_SAMPLES",
+                [5]: "MAX_DIST",
+                [15]: "dist",
+                [24]: "sample_distance",
+                [34]: "diff_norm",
+                [37]: "ao",
+            },
+            body: Block {
+                body: [
+                    Store {
+                        pointer: [7],
+                        value: [6],
+                    },
+                    Store {
+                        pointer: [9],
+                        value: [8],
+                    },
+                    Loop {
+                        body: Block {
+                            body: [
+                                Emit(
+                                    [10..11],
+                                ),
+                                If {
+                                    condition: [11],
+                                    accept: Block {
+                                        body: [],
+                                        span_info: [],
+                                    },
+                                    reject: Block {
+                                        body: [
+                                            Break,
+                                        ],
+                                        span_info: [
+                                            Span {
+                                                start: 3059,
+                                                end: 3074,
+                                            },
+                                        ],
+                                    },
+                                },
+                                Block(
+                                    Block {
+                                        body: [
+                                            Emit(
+                                                [12..13],
+                                            ),
+                                            Call {
+                                                function: [3],
+                                                arguments: [
+                                                    [13],
+                                                ],
+                                                result: Some(
+                                                    [14],
+                                                ),
+                                            },
+                                            Emit(
+                                                [15..15],
+                                            ),
+                                            Emit(
+                                                [17..18],
+                                            ),
+                                            Emit(
+                                                [20..20],
+                                            ),
+                                            Call {
+                                                function: [1],
+                                                arguments: [
+                                                    [18],
+                                                    [20],
+                                                ],
+                                                result: Some(
+                                                    [21],
+                                                ),
+                                            },
+                                            Emit(
+                                                [23..24],
+                                            ),
+                                            Emit(
+                                                [25..28],
+                                            ),
+                                            Store {
+                                                pointer: [7],
+                                                value: [28],
+                                            },
+                                        ],
+                                        span_info: [
+                                            Span {
+                                                start: 3113,
+                                                end: 3119,
+                                            },
+                                            Span {
+                                                start: 3108,
+                                                end: 3120,
+                                            },
+                                            Span {
+                                                start: 3096,
+                                                end: 3120,
+                                            },
+                                            Span {
+                                                start: 3161,
+                                                end: 3180,
+                                            },
+                                            Span {
+                                                start: 3182,
+                                                end: 3192,
+                                            },
+                                            Span {
+                                                start: 3157,
+                                                end: 3193,
+                                            },
+                                            Span {
+                                                start: 3148,
+                                                end: 3196,
+                                            },
+                                            Span {
+                                                start: 3210,
+                                                end: 3253,
+                                            },
+                                            Span {
+                                                start: 3210,
+                                                end: 3253,
+                                            },
+                                        ],
+                                    },
+                                ),
+                            ],
+                            span_info: [
+                                Span {
+                                    start: 3060,
+                                    end: 3073,
+                                },
+                                Span {
+                                    start: 3059,
+                                    end: 3074,
+                                },
+                                Span {
+                                    start: 3079,
+                                    end: 3254,
+                                },
+                            ],
+                        },
+                        continuing: Block {
+                            body: [
+                                Emit(
+                                    [30..31],
+                                ),
+                                Store {
+                                    pointer: [9],
+                                    value: [31],
+                                },
+                            ],
+                            span_info: [
+                                Span {
+                                    start: 3075,
+                                    end: 3078,
+                                },
+                                Span {
+                                    start: 3075,
+                                    end: 3078,
+                                },
+                            ],
+                        },
+                        break_if: None,
+                    },
+                    Emit(
+                        [32..34],
+                    ),
+                    Emit(
+                        [36..37],
+                    ),
+                    Emit(
+                        [40..40],
+                    ),
+                    Return {
+                        value: Some(
+                            [40],
+                        ),
+                    },
+                ],
+                span_info: [
+                    Span {
+                        start: 3026,
+                        end: 3041,
+                    },
+                    Span {
+                        start: 3049,
+                        end: 3059,
+                    },
+                    Span {
+                        start: 3044,
+                        end: 3254,
+                    },
+                    Span {
+                        start: 3278,
+                        end: 3299,
+                    },
+                    Span {
+                        start: 3312,
+                        end: 3337,
+                    },
+                    Span {
+                        start: 3349,
+                        end: 3354,
+                    },
+                    Span {
+                        start: 3342,
+                        end: 3369,
+                    },
+                ],
+            },
+        },
+        [5]: Function {
+            name: Some(
+                "castRay",
+            ),
+            arguments: [
+                FunctionArgument {
+                    name: Some(
+                        "rayOrigin",
+                    ),
+                    ty: [6],
+                    binding: None,
+                },
+                FunctionArgument {
+                    name: Some(
+                        "rayDirection",
+                    ),
+                    ty: [6],
+                    binding: None,
+                },
+            ],
+            result: Some(
+                FunctionResult {
+                    ty: [1],
+                    binding: None,
+                },
+            ),
+            local_variables: {
+                [1]: LocalVariable {
+                    name: Some(
+                        "t",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+                [2]: LocalVariable {
+                    name: Some(
+                        "trap",
+                    ),
+                    ty: [6],
+                    init: None,
+                },
+                [3]: LocalVariable {
+                    name: Some(
+                        "i",
+                    ),
+                    ty: [7],
+                    init: None,
+                },
+                [4]: LocalVariable {
+                    name: Some(
+                        "h",
+                    ),
+                    ty: [4],
+                    init: None,
+                },
+            },
+            expressions: {
+                [1]: FunctionArgument(
+                    0,
+                ),
+                [2]: FunctionArgument(
+                    1,
+                ),
+                [3]: Literal(
+                    F32(
+                        200.0,
+                    ),
+                ),
+                [4]: Literal(
+                    F32(
+                        0.0,
+                    ),
+                ),
+                [5]: LocalVariable(
+                    [1],
+                ),
+                [6]: Literal(
+                    F32(
+                        0.5,
+                    ),
+                ),
+                [7]: Splat {
+                    size: Tri,
+                    value: [6],
+                },
+                [8]: LocalVariable(
+                    [2],
+                ),
+                [9]: Literal(
+                    I32(
+                        0,
+                    ),
+                ),
+                [10]: LocalVariable(
+                    [3],
+                ),
+                [11]: Load {
+                    pointer: [10],
+                },
+                [12]: Literal(
+                    I32(
+                        100,
+                    ),
+                ),
+                [13]: Binary {
+                    op: Less,
+                    left: [11],
+                    right: [12],
+                },
+                [14]: Load {
+                    pointer: [5],
+                },
+                [15]: Binary {
+                    op: Multiply,
+                    left: [14],
+                    right: [2],
+                },
+                [16]: Binary {
+                    op: Add,
+                    left: [1],
+                    right: [15],
+                },
+                [17]: Load {
+                    pointer: [8],
+                },
+                [18]: CallResult(
+                    [1],
+                ),
+                [19]: Swizzle {
+                    size: Tri,
+                    vector: [18],
+                    pattern: [
+                        X,
+                        Y,
+                        Z,
+                        X,
+                    ],
+                },
+                [20]: Literal(
+                    I32(
+                        3,
+                    ),
+                ),
+                [21]: AccessIndex {
+                    base: [18],
+                    index: 3,
+                },
+                [22]: LocalVariable(
+                    [4],
+                ),
+                [23]: Load {
+                    pointer: [22],
+                },
+                [24]: Literal(
+                    F32(
+                        0.0003,
+                    ),
+                ),
+                [25]: Binary {
+                    op: Less,
+                    left: [23],
+                    right: [24],
+                },
+                [26]: Load {
+                    pointer: [22],
+                },
+                [27]: Load {
+                    pointer: [5],
+                },
+                [28]: Binary {
+                    op: Add,
+                    left: [27],
+                    right: [26],
+                },
+                [29]: Load {
+                    pointer: [5],
+                },
+                [30]: Binary {
+                    op: Greater,
+                    left: [29],
+                    right: [3],
+                },
+                [31]: Load {
+                    pointer: [8],
+                },
+                [32]: Literal(
+                    F32(
+                        -1.0,
+                    ),
+                ),
+                [33]: Compose {
+                    ty: [1],
+                    components: [
+                        [31],
+                        [32],
+                    ],
+                },
+                [34]: Literal(
+                    I32(
+                        1,
+                    ),
+                ),
+                [35]: Load {
+                    pointer: [10],
+                },
+                [36]: Binary {
+                    op: Add,
+                    left: [35],
+                    right: [34],
+                },
+                [37]: Load {
+                    pointer: [8],
+                },
+                [38]: Load {
+                    pointer: [5],
+                },
+                [39]: Compose {
+                    ty: [1],
+                    components: [
+                        [37],
+                        [38],
+                    ],
+                },
+            },
+            named_expressions: {
+                [1]: "rayOrigin",
+                [2]: "rayDirection",
+                [3]: "tmax",
+                [16]: "pos",
+                [18]: "mapResult",
+            },
+            body: Block {
+                body: [
+                    Store {
+                        pointer: [5],
+                        value: [4],
+                    },
+                    Emit(
+                        [7..7],
+                    ),
+                    Store {
+                        pointer: [8],
+                        value: [7],
+                    },
+                    Store {
+                        pointer: [10],
+                        value: [9],
+                    },
+                    Loop {
+                        body: Block {
+                            body: [
+                                Emit(
+                                    [11..11],
+                                ),
+                                Emit(
+                                    [13..13],
+                                ),
+                                If {
+                                    condition: [13],
+                                    accept: Block {
+                                        body: [],
+                                        span_info: [],
+                                    },
+                                    reject: Block {
+                                        body: [
+                                            Break,
+                                        ],
+                                        span_info: [
+                                            Span {
+                                                start: 3806,
+                                                end: 3815,
+                                            },
+                                        ],
+                                    },
+                                },
+                                Block(
+                                    Block {
+                                        body: [
+                                            Emit(
+                                                [14..16],
+                                            ),
+                                            Emit(
+                                                [17..17],
+                                            ),
+                                            Call {
+                                                function: [1],
+                                                arguments: [
+                                                    [16],
+                                                    [17],
+                                                ],
+                                                result: Some(
+                                                    [18],
+                                                ),
+                                            },
+                                            Emit(
+                                                [19..19],
+                                            ),
+                                            Store {
+                                                pointer: [8],
+                                                value: [19],
+                                            },
+                                            Emit(
+                                                [21..21],
+                                            ),
+                                            Store {
+                                                pointer: [22],
+                                                value: [21],
+                                            },
+                                            Emit(
+                                                [23..23],
+                                            ),
+                                            Emit(
+                                                [25..25],
+                                            ),
+                                            If {
+                                                condition: [25],
+                                                accept: Block {
+                                                    body: [
+                                                        Break,
+                                                    ],
+                                                    span_info: [
+                                                        Span {
+                                                            start: 4051,
+                                                            end: 4057,
+                                                        },
+                                                    ],
+                                                },
+                                                reject: Block {
+                                                    body: [],
+                                                    span_info: [],
+                                                },
+                                            },
+                                            Emit(
+                                                [26..28],
+                                            ),
+                                            Store {
+                                                pointer: [5],
+                                                value: [28],
+                                            },
+                                            Emit(
+                                                [29..30],
+                                            ),
+                                            If {
+                                                condition: [30],
+                                                accept: Block {
+                                                    body: [
+                                                        Emit(
+                                                            [31..31],
+                                                        ),
+                                                        Emit(
+                                                            [33..33],
+                                                        ),
+                                                        Return {
+                                                            value: Some(
+                                                                [33],
+                                                            ),
+                                                        },
+                                                    ],
+                                                    span_info: [
+                                                        Span {
+                                                            start: 0,
+                                                            end: 0,
+                                                        },
+                                                        Span {
+                                                            start: 4112,
+                                                            end: 4129,
+                                                        },
+                                                        Span {
+                                                            start: 4105,
+                                                            end: 4130,
+                                                        },
+                                                    ],
+                                                },
+                                                reject: Block {
+                                                    body: [],
+                                                    span_info: [],
+                                                },
+                                            },
+                                        ],
+                                        span_info: [
+                                            Span {
+                                                start: 3836,
+                                                end: 3864,
+                                            },
+                                            Span {
+                                                start: 0,
+                                                end: 0,
+                                            },
+                                            Span {
+                                                start: 3953,
+                                                end: 3967,
+                                            },
+                                            Span {
+                                                start: 3980,
+                                                end: 3993,
+                                            },
+                                            Span {
+                                                start: 3973,
+                                                end: 3993,
+                                            },
+                                            Span {
+                                                start: 4012,
+                                                end: 4024,
+                                            },
+                                            Span {
+                                                start: 3999,
+                                                end: 4025,
+                                            },
+                                            Span {
+                                                start: 0,
+                                                end: 0,
+                                            },
+                                            Span {
+                                                start: 4036,
+                                                end: 4046,
+                                            },
+                                            Span {
+                                                start: 4031,
+                                                end: 4057,
+                                            },
+                                            Span {
+                                                start: 4069,
+                                                end: 4075,
+                                            },
+                                            Span {
+                                                start: 4069,
+                                                end: 4075,
+                                            },
+                                            Span {
+                                                start: 4086,
+                                                end: 4094,
+                                            },
+                                            Span {
+                                                start: 4081,
+                                                end: 4130,
+                                            },
+                                        ],
+                                    },
+                                ),
+                            ],
+                            span_info: [
+                                Span {
+                                    start: 0,
+                                    end: 0,
+                                },
+                                Span {
+                                    start: 3807,
+                                    end: 3814,
+                                },
+                                Span {
+                                    start: 3806,
+                                    end: 3815,
+                                },
+                                Span {
+                                    start: 3820,
+                                    end: 4130,
+                                },
+                            ],
+                        },
+                        continuing: Block {
+                            body: [
+                                Emit(
+                                    [35..36],
+                                ),
+                                Store {
+                                    pointer: [10],
+                                    value: [36],
+                                },
+                            ],
+                            span_info: [
+                                Span {
+                                    start: 3816,
+                                    end: 3819,
+                                },
+                                Span {
+                                    start: 3816,
+                                    end: 3819,
+                                },
+                            ],
+                        },
+                        break_if: None,
+                    },
+                    Emit(
+                        [37..39],
+                    ),
+                    Return {
+                        value: Some(
+                            [39],
+                        ),
+                    },
+                ],
+                span_info: [
+                    Span {
+                        start: 3744,
+                        end: 3756,
+                    },
+                    Span {
+                        start: 3773,
+                        end: 3783,
+                    },
+                    Span {
+                        start: 3762,
+                        end: 3784,
+                    },
+                    Span {
+                        start: 3796,
+                        end: 3806,
+                    },
+                    Span {
+                        start: 3792,
+                        end: 4130,
+                    },
+                    Span {
+                        start: 4189,
+                        end: 4203,
+                    },
+                    Span {
+                        start: 4182,
+                        end: 4204,
+                    },
+                ],
+            },
+        },
+    },
+    entry_points: [
+        EntryPoint {
+            name: "vertexShader",
+            stage: Vertex,
+            early_depth_test: None,
+            workgroup_size: [
+                0,
+                0,
+                0,
+            ],
+            function: Function {
+                name: Some(
+                    "vertexShader",
+                ),
+                arguments: [
+                    FunctionArgument {
+                        name: Some(
+                            "pos",
+                        ),
+                        ty: [2],
+                        binding: Some(
+                            Location {
+                                location: 0,
+                                interpolation: Some(
+                                    Perspective,
+                                ),
+                                sampling: Some(
+                                    Center,
+                                ),
+                            },
+                        ),
+                    },
+                ],
+                result: Some(
+                    FunctionResult {
+                        ty: [3],
+                        binding: None,
+                    },
+                ),
+                local_variables: {
+                    [1]: LocalVariable {
+                        name: Some(
+                            "output",
+                        ),
+                        ty: [3],
+                        init: None,
+                    },
+                },
+                expressions: {
+                    [1]: FunctionArgument(
+                        0,
+                    ),
+                    [2]: LocalVariable(
+                        [1],
+                    ),
+                    [3]: AccessIndex {
+                        base: [2],
+                        index: 0,
+                    },
+                    [4]: Literal(
+                        F32(
+                            0.0,
+                        ),
+                    ),
+                    [5]: Literal(
+                        F32(
+                            1.0,
+                        ),
+                    ),
+                    [6]: Compose {
+                        ty: [1],
+                        components: [
+                            [1],
+                            [4],
+                            [5],
+                        ],
+                    },
+                    [7]: AccessIndex {
+                        base: [2],
+                        index: 1,
+                    },
+                    [8]: Load {
+                        pointer: [2],
+                    },
+                },
+                named_expressions: {
+                    [1]: "pos",
+                },
+                body: Block {
+                    body: [
+                        Emit(
+                            [3..3],
+                        ),
+                        Emit(
+                            [6..6],
+                        ),
+                        Store {
+                            pointer: [3],
+                            value: [6],
+                        },
+                        Emit(
+                            [7..7],
+                        ),
+                        Store {
+                            pointer: [7],
+                            value: [1],
+                        },
+                        Emit(
+                            [8..8],
+                        ),
+                        Return {
+                            value: Some(
+                                [8],
+                            ),
+                        },
+                    ],
+                    span_info: [
+                        Span {
+                            start: 185,
+                            end: 195,
+                        },
+                        Span {
+                            start: 198,
+                            end: 218,
+                        },
+                        Span {
+                            start: 185,
+                            end: 218,
+                        },
+                        Span {
+                            start: 222,
+                            end: 236,
+                        },
+                        Span {
+                            start: 222,
+                            end: 242,
+                        },
+                        Span {
+                            start: 0,
+                            end: 0,
+                        },
+                        Span {
+                            start: 246,
+                            end: 260,
+                        },
+                    ],
+                },
+            },
+        },
+        EntryPoint {
+            name: "fragmentShader",
+            stage: Fragment,
+            early_depth_test: None,
+            workgroup_size: [
+                0,
+                0,
+                0,
+            ],
+            function: Function {
+                name: Some(
+                    "fragmentShader",
+                ),
+                arguments: [
+                    FunctionArgument {
+                        name: Some(
+                            "basePos",
+                        ),
+                        ty: [2],
+                        binding: Some(
+                            Location {
+                                location: 0,
+                                interpolation: Some(
+                                    Perspective,
+                                ),
+                                sampling: Some(
+                                    Center,
+                                ),
+                            },
+                        ),
+                    },
+                ],
+                result: Some(
+                    FunctionResult {
+                        ty: [1],
+                        binding: Some(
+                            Location {
+                                location: 0,
+                                interpolation: Some(
+                                    Perspective,
+                                ),
+                                sampling: Some(
+                                    Center,
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                local_variables: {},
+                expressions: {
+                    [1]: FunctionArgument(
+                        0,
+                    ),
+                    [2]: Literal(
+                        F32(
+                            50.0,
+                        ),
+                    ),
+                    [3]: GlobalVariable(
+                        [1],
+                    ),
+                    [4]: AccessIndex {
+                        base: [3],
+                        index: 0,
+                    },
+                    [5]: Load {
+                        pointer: [4],
+                    },
+                    [6]: Binary {
+                        op: Add,
+                        left: [2],
+                        right: [5],
+                    },
+                    [7]: Literal(
+                        F32(
+                            3.0,
+                        ),
+                    ),
+                    [8]: Literal(
+                        F32(
+                            0.1,
+                        ),
+                    ),
+                    [9]: Literal(
+                        F32(
+                            0.125,
+                        ),
+                    ),
+                    [10]: Binary {
+                        op: Multiply,
+                        left: [8],
+                        right: [9],
+                    },
+                    [11]: Binary {
+                        op: Multiply,
+                        left: [10],
+                        right: [6],
+                    },
+                    [12]: Math {
+                        fun: Cos,
+                        arg: [11],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [13]: Binary {
+                        op: Multiply,
+                        left: [7],
+                        right: [12],
+                    },
+                    [14]: Literal(
+                        F32(
+                            0.1,
+                        ),
+                    ),
+                    [15]: Literal(
+                        F32(
+                            0.5,
+                        ),
+                    ),
+                    [16]: Binary {
+                        op: Multiply,
+                        left: [14],
+                        right: [15],
+                    },
+                    [17]: Binary {
+                        op: Multiply,
+                        left: [16],
+                        right: [6],
+                    },
+                    [18]: Math {
+                        fun: Sin,
+                        arg: [17],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [19]: Binary {
+                        op: Multiply,
+                        left: [13],
+                        right: [18],
+                    },
+                    [20]: Literal(
+                        F32(
+                            0.1,
+                        ),
+                    ),
+                    [21]: Binary {
+                        op: Multiply,
+                        left: [20],
+                        right: [6],
+                    },
+                    [22]: Math {
+                        fun: Sin,
+                        arg: [21],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [23]: Literal(
+                        F32(
+                            2.0,
+                        ),
+                    ),
+                    [24]: Literal(
+                        F32(
+                            0.1,
+                        ),
+                    ),
+                    [25]: Literal(
+                        F32(
+                            0.5,
+                        ),
+                    ),
+                    [26]: Binary {
+                        op: Multiply,
+                        left: [24],
+                        right: [25],
+                    },
+                    [27]: Binary {
+                        op: Multiply,
+                        left: [26],
+                        right: [6],
+                    },
+                    [28]: Math {
+                        fun: Cos,
+                        arg: [27],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [29]: Binary {
+                        op: Multiply,
+                        left: [23],
+                        right: [28],
+                    },
+                    [30]: Compose {
+                        ty: [6],
+                        components: [
+                            [19],
+                            [22],
+                            [29],
+                        ],
+                    },
+                    [31]: Literal(
+                        F32(
+                            0.0,
+                        ),
+                    ),
+                    [32]: Splat {
+                        size: Tri,
+                        value: [31],
+                    },
+                    [33]: Literal(
+                        F32(
+                            110.0,
+                        ),
+                    ),
+                    [34]: Literal(
+                        F32(
+                            3.141592,
+                        ),
+                    ),
+                    [35]: Binary {
+                        op: Multiply,
+                        left: [33],
+                        right: [34],
+                    },
+                    [36]: Literal(
+                        F32(
+                            180.0,
+                        ),
+                    ),
+                    [37]: Binary {
+                        op: Divide,
+                        left: [35],
+                        right: [36],
+                    },
+                    [38]: Literal(
+                        F32(
+                            1.0,
+                        ),
+                    ),
+                    [39]: Binary {
+                        op: Multiply,
+                        left: [38],
+                        right: [37],
+                    },
+                    [40]: Binary {
+                        op: Subtract,
+                        left: [32],
+                        right: [30],
+                    },
+                    [41]: Math {
+                        fun: Normalize,
+                        arg: [40],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [42]: Literal(
+                        I32(
+                            0,
+                        ),
+                    ),
+                    [43]: Literal(
+                        I32(
+                            1,
+                        ),
+                    ),
+                    [44]: Literal(
+                        I32(
+                            0,
+                        ),
+                    ),
+                    [45]: Compose {
+                        ty: [6],
+                        components: [
+                            [42],
+                            [43],
+                            [44],
+                        ],
+                    },
+                    [46]: Math {
+                        fun: Cross,
+                        arg: [45],
+                        arg1: Some(
+                            [41],
+                        ),
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [47]: Math {
+                        fun: Normalize,
+                        arg: [46],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [48]: Math {
+                        fun: Cross,
+                        arg: [41],
+                        arg1: Some(
+                            [47],
+                        ),
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [49]: Math {
+                        fun: Normalize,
+                        arg: [48],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [50]: AccessIndex {
+                        base: [1],
+                        index: 0,
+                    },
+                    [51]: Binary {
+                        op: Multiply,
+                        left: [50],
+                        right: [39],
+                    },
+                    [52]: Binary {
+                        op: Multiply,
+                        left: [51],
+                        right: [47],
+                    },
+                    [53]: AccessIndex {
+                        base: [1],
+                        index: 1,
+                    },
+                    [54]: Binary {
+                        op: Multiply,
+                        left: [53],
+                        right: [39],
+                    },
+                    [55]: Binary {
+                        op: Multiply,
+                        left: [54],
+                        right: [49],
+                    },
+                    [56]: Binary {
+                        op: Add,
+                        left: [52],
+                        right: [55],
+                    },
+                    [57]: Binary {
+                        op: Add,
+                        left: [56],
+                        right: [41],
+                    },
+                    [58]: Binary {
+                        op: Subtract,
+                        left: [57],
+                        right: [30],
+                    },
+                    [59]: Math {
+                        fun: Normalize,
+                        arg: [58],
+                        arg1: None,
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [60]: CallResult(
+                        [5],
+                    ),
+                    [61]: Swizzle {
+                        size: Tri,
+                        vector: [60],
+                        pattern: [
+                            X,
+                            Y,
+                            Z,
+                            X,
+                        ],
+                    },
+                    [62]: Literal(
+                        I32(
+                            3,
+                        ),
+                    ),
+                    [63]: AccessIndex {
+                        base: [60],
+                        index: 3,
+                    },
+                    [64]: Literal(
+                        F32(
+                            0.0,
+                        ),
+                    ),
+                    [65]: Binary {
+                        op: Greater,
+                        left: [63],
+                        right: [64],
+                    },
+                    [66]: Literal(
+                        F32(
+                            0.373,
+                        ),
+                    ),
+                    [67]: Literal(
+                        F32(
+                            0.18,
+                        ),
+                    ),
+                    [68]: Literal(
+                        F32(
+                            0.18,
+                        ),
+                    ),
+                    [69]: Compose {
+                        ty: [6],
+                        components: [
+                            [66],
+                            [67],
+                            [68],
+                        ],
+                    },
+                    [70]: Literal(
+                        F32(
+                            0.165,
+                        ),
+                    ),
+                    [71]: Literal(
+                        F32(
+                            0.125,
+                        ),
+                    ),
+                    [72]: Literal(
+                        F32(
+                            0.165,
+                        ),
+                    ),
+                    [73]: Compose {
+                        ty: [6],
+                        components: [
+                            [70],
+                            [71],
+                            [72],
+                        ],
+                    },
+                    [74]: Literal(
+                        F32(
+                            0.545,
+                        ),
+                    ),
+                    [75]: Literal(
+                        F32(
+                            0.255,
+                        ),
+                    ),
+                    [76]: Literal(
+                        F32(
+                            0.212,
+                        ),
+                    ),
+                    [77]: Compose {
+                        ty: [6],
+                        components: [
+                            [74],
+                            [75],
+                            [76],
+                        ],
+                    },
+                    [78]: Literal(
+                        I32(
+                            20,
+                        ),
+                    ),
+                    [79]: Splat {
+                        size: Tri,
+                        value: [78],
+                    },
+                    [80]: Math {
+                        fun: Pow,
+                        arg: [61],
+                        arg1: Some(
+                            [79],
+                        ),
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [81]: Literal(
+                        F32(
+                            0.0,
+                        ),
+                    ),
+                    [82]: Splat {
+                        size: Tri,
+                        value: [81],
+                    },
+                    [83]: Literal(
+                        F32(
+                            1.0,
+                        ),
+                    ),
+                    [84]: Splat {
+                        size: Tri,
+                        value: [83],
+                    },
+                    [85]: Math {
+                        fun: Clamp,
+                        arg: [80],
+                        arg1: Some(
+                            [82],
+                        ),
+                        arg2: Some(
+                            [84],
+                        ),
+                        arg3: None,
+                    },
+                    [86]: Literal(
+                        F32(
+                            0.4545,
+                        ),
+                    ),
+                    [87]: Splat {
+                        size: Tri,
+                        value: [86],
+                    },
+                    [88]: Math {
+                        fun: Pow,
+                        arg: [85],
+                        arg1: Some(
+                            [87],
+                        ),
+                        arg2: None,
+                        arg3: None,
+                    },
+                    [89]: Literal(
+                        I32(
+                            1,
+                        ),
+                    ),
+                    [90]: Compose {
+                        ty: [1],
+                        components: [
+                            [88],
+                            [89],
+                        ],
+                    },
+                    [91]: Literal(
+                        I32(
+                            0,
+                        ),
+                    ),
+                    [92]: Literal(
+                        I32(
+                            0,
+                        ),
+                    ),
+                    [93]: Literal(
+                        I32(
+                            0,
+                        ),
+                    ),
+                    [94]: Literal(
+                        I32(
+                            0,
+                        ),
+                    ),
+                    [95]: Compose {
+                        ty: [1],
+                        components: [
+                            [91],
+                            [92],
+                            [93],
+                            [94],
+                        ],
+                    },
+                },
+                named_expressions: {
+                    [1]: "basePos",
+                    [6]: "freq",
+                    [30]: "ro",
+                    [32]: "cam_target",
+                    [37]: "fov",
+                    [39]: "h",
+                    [41]: "cam_ww",
+                    [47]: "cam_uu",
+                    [49]: "cam_vv",
+                    [59]: "rd",
+                    [60]: "rayCastResult",
+                    [61]: "finalRayPos",
+                    [63]: "t",
+                    [69]: "first_palette",
+                    [73]: "second_palette",
+                    [77]: "third_palette",
+                    [85]: "finalColor",
+                },
+                body: Block {
+                    body: [
+                        Emit(
+                            [4..6],
+                        ),
+                        Emit(
+                            [10..13],
+                        ),
+                        Emit(
+                            [16..19],
+                        ),
+                        Emit(
+                            [21..22],
+                        ),
+                        Emit(
+                            [26..30],
+                        ),
+                        Emit(
+                            [32..32],
+                        ),
+                        Emit(
+                            [35..35],
+                        ),
+                        Emit(
+                            [37..37],
+                        ),
+                        Emit(
+                            [39..39],
+                        ),
+                        Emit(
+                            [40..41],
+                        ),
+                        Emit(
+                            [45..47],
+                        ),
+                        Emit(
+                            [48..49],
+                        ),
+                        Emit(
+                            [50..59],
+                        ),
+                        Call {
+                            function: [5],
+                            arguments: [
+                                [30],
+                                [59],
+                            ],
+                            result: Some(
+                                [60],
+                            ),
+                        },
+                        Emit(
+                            [61..61],
+                        ),
+                        Emit(
+                            [63..63],
+                        ),
+                        Emit(
+                            [65..65],
+                        ),
+                        If {
+                            condition: [65],
+                            accept: Block {
+                                body: [
+                                    Emit(
+                                        [69..69],
+                                    ),
+                                    Emit(
+                                        [73..73],
+                                    ),
+                                    Emit(
+                                        [77..77],
+                                    ),
+                                    Emit(
+                                        [79..80],
+                                    ),
+                                    Emit(
+                                        [82..82],
+                                    ),
+                                    Emit(
+                                        [84..85],
+                                    ),
+                                    Emit(
+                                        [87..88],
+                                    ),
+                                    Emit(
+                                        [90..90],
+                                    ),
+                                    Return {
+                                        value: Some(
+                                            [90],
+                                        ),
+                                    },
+                                ],
+                                span_info: [
+                                    Span {
+                                        start: 5367,
+                                        end: 5391,
+                                    },
+                                    Span {
+                                        start: 5418,
+                                        end: 5444,
+                                    },
+                                    Span {
+                                        start: 5470,
+                                        end: 5496,
+                                    },
+                                    Span {
+                                        start: 5523,
+                                        end: 5549,
+                                    },
+                                    Span {
+                                        start: 5552,
+                                        end: 5562,
+                                    },
+                                    Span {
+                                        start: 5517,
+                                        end: 5574,
+                                    },
+                                    Span {
+                                        start: 5840,
+                                        end: 5869,
+                                    },
+                                    Span {
+                                        start: 5834,
+                                        end: 5874,
+                                    },
+                                    Span {
+                                        start: 5827,
+                                        end: 5875,
+                                    },
+                                ],
+                            },
+                            reject: Block {
+                                body: [
+                                    Emit(
+                                        [95..95],
+                                    ),
+                                    Return {
+                                        value: Some(
+                                            [95],
+                                        ),
+                                    },
+                                ],
+                                span_info: [
+                                    Span {
+                                        start: 6127,
+                                        end: 6144,
+                                    },
+                                    Span {
+                                        start: 6120,
+                                        end: 6145,
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                    span_info: [
+                        Span {
+                            start: 4324,
+                            end: 4346,
+                        },
+                        Span {
+                            start: 4376,
+                            end: 4405,
+                        },
+                        Span {
+                            start: 4376,
+                            end: 4429,
+                        },
+                        Span {
+                            start: 4435,
+                            end: 4449,
+                        },
+                        Span {
+                            start: 4365,
+                            end: 4487,
+                        },
+                        Span {
+                            start: 4509,
+                            end: 4519,
+                        },
+                        Span {
+                            start: 4533,
+                            end: 4549,
+                        },
+                        Span {
+                            start: 4533,
+                            end: 4557,
+                        },
+                        Span {
+                            start: 4570,
+                            end: 4579,
+                        },
+                        Span {
+                            start: 4599,
+                            end: 4629,
+                        },
+                        Span {
+                            start: 4647,
+                            end: 4677,
+                        },
+                        Span {
+                            start: 4704,
+                            end: 4719,
+                        },
+                        Span {
+                            start: 4869,
+                            end: 4940,
+                        },
+                        Span {
+                            start: 5074,
+                            end: 5094,
+                        },
+                        Span {
+                            start: 5116,
+                            end: 5133,
+                        },
+                        Span {
+                            start: 5145,
+                            end: 5161,
+                        },
+                        Span {
+                            start: 5300,
+                            end: 5307,
+                        },
+                        Span {
+                            start: 5295,
+                            end: 6145,
+                        },
+                    ],
+                },
+            },
+        },
+    ],
+}
