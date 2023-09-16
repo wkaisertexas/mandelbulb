@@ -6,10 +6,7 @@ An implementation of the Mandelbulb in WebGPU.
 
 This was a very fun project and a great introduction to WebGPU.
 
-<video autoplay controls>
-  <source src="mandelbulb.mov" type="video/mp4">
-</video>
-
+[Watch a pre-rendered video](./mandelbulb.mov)
 
 <p align="center">
 <a href="https://wkaisertexas.github.io/mandelbulb">
