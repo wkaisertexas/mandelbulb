@@ -204,7 +204,7 @@ fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
 
   //return vec4f(rd, 1);
 
-  // return vec4f(t / 100 , 0, 0, 1);
+  // return vec4f(t / 100 , 0.0, 0.0, 1);
 
   //return vec4f(finalRayPos, 1);
 
@@ -215,7 +215,7 @@ fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
     let second_palette = vec3f(0.165, 0.125, 0.165);
     let third_palette = vec3f(0.545, 0.255, 0.212);
 
-    let rayMult = clamp(pow(finalRayPos, vec3f(20)), vec3f(0.0), vec3f(1.0));
+    let rayMult = clamp(pow(finalRayPos, vec3f(20.0)), vec3f(0.0), vec3f(1.0));
 
     // let finalColor = first_palette * rayMult.x + second_palette * rayMult.y + third_palette * rayMult.z;
     let finalColor = rayMult;
@@ -224,11 +224,11 @@ fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
 
     //let ao = ambientOcclusion(ro + t * rd, normal);
       
-    return vec4f(pow(finalColor, vec3f(0.4545)), 1);
+    return vec4f(pow(finalColor, vec3f(0.4545)), 1.0);
     // return vec4f((normal + 1) / 2, 1);
     // return vec4f(normal * finalColor, 1);
     // return vec4f(normal, 1); // normals look weird because they are not being taken from a point on the surface, the sides are only shown 
   } else {
-    return vec4f(0, 0, 0, 0);
+    return vec4f(0.0, 0.0, 0.0, 0.0);
   }
 }
