@@ -7,7 +7,7 @@ An implementation of the Mandelbulb in WebGPU.
 This was a very fun project and a great introduction to WebGPU.
 
 <video autoplay controls>
-  <source src="./mandelbulb.mov" type="video/mp4">
+  <source src="mandelbulb.mov" type="video/mp4">
 </video>
 
 
