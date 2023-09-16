@@ -13,6 +13,10 @@ canvas.height = 1024;
 let device, videoWriter, renderPipeline, time, context, vertexBuffer, vertices;
 
 const setup = async () => {
+  if (!navigator.gpu) {
+    alert("WebGPU is not supported in your browser - Try the latest version of Chrome or Microsoft Edge");
+    return;
+  }
   const adapter = await navigator.gpu.requestAdapter();
 
   device = await adapter.requestDevice({
@@ -160,7 +164,7 @@ const render = async () => {
 };
 
 // scheduling the interval
-// let paused = false;
+let paused = false;
 
 // for (let i = 0; i < 30; i++) {
 //   render();
