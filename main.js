@@ -1,6 +1,6 @@
 /// Goal: create a webgpu impl of the mandelbulb fractal
 /// Source: https://iquilezles.org/articles/mandelbulb/
-import WebMWriter from "webm-writer";
+// import WebMWriter from "webm-writer";
 
 let FPS = 20;
 let mean = 0.0;
@@ -30,10 +30,10 @@ const setup = async () => {
     format: canvasFormat,
   });
 
-  videoWriter = new WebMWriter({
-    quality: 1.0,
-    frameRate: FPS,
-  });
+  // videoWriter = new WebMWriter({
+  //   quality: 1.0,
+  //   frameRate: FPS,
+  // });
 
   // with the device, setup a render pipeline
 
@@ -160,25 +160,25 @@ const render = async () => {
 };
 
 // scheduling the interval
-let paused = false;
+// let paused = false;
 
-for (let i = 0; i < 30; i++) {
-  render();
-  videoWriter.addFrame(canvas);
-}
+// for (let i = 0; i < 30; i++) {
+//   render();
+//   videoWriter.addFrame(canvas);
+// }
 
-videoWriter.complete().then(function (webMBlob) {
-  const a = document.createElement("a");
+// videoWriter.complete().then(function (webMBlob) {
+//   const a = document.createElement("a");
 
-  const url = URL.createObjectURL(webMBlob);
-  a.download = "video.webm";
-  a.href = url;
-  a.action = "download";
-  //
-  a.click();
+//   const url = URL.createObjectURL(webMBlob);
+//   a.download = "video.webm";
+//   a.href = url;
+//   a.action = "download";
+//   //
+//   a.click();
 
-  URL.revokeObjectURL(href);
-});
+//   URL.revokeObjectURL(href);
+// });
 
 // render();
 document.addEventListener("keydown", (e) => {
