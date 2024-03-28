@@ -151,13 +151,10 @@ const canvasDragged = (event) => {
     // scale down diffX and diffY
     targetX += diffX / canvas.width;
     targetY += diffY / canvas.height;
-
-    console.log("Canvas dragged!");
 };
 
 const mouseUp = (event) => {
   isMouseDown = false;
-  console.log("Mouse up!");
 };
 
 const mouseDown = (event) => {
@@ -166,7 +163,6 @@ const mouseDown = (event) => {
   const rect = canvas.getBoundingClientRect();
   priorX = event.clientX - rect.left;
   priorY = event.clientY - rect.top;
-  console.log("Mouse down!");
 };
 
 const render = async () => {

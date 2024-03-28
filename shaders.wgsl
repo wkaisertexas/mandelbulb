@@ -88,7 +88,7 @@ fn map(pos: vec3f, in_out: vec3f) -> vec4f {
   var r = length(z);
 
   var numIter = 0;
-  for(var i = 0; i < 100; i++){
+  for(var i = 0; i < 80; i++){
     r = length(z); // length of pos is close to zero
     if(r > 2.0) { break; } // this would get triggered instantly
     var theta: f32 = acos(z.z / r);
@@ -163,7 +163,7 @@ fn map(pos: vec3f, in_out: vec3f) -> vec4f {
 
 fn ambientOcclusion(pos: vec3f, normal: vec3f) -> f32 {
   let FALLOFF = 0.46;
-  let N_SAMPLES = 12;
+  let N_SAMPLES = 4;
   let MAX_DIST = 0.07; 
 
   var diff = 0.0;
@@ -189,14 +189,14 @@ fn castRay(rayOrigin: vec3f, rayDirection: vec3f) -> vec4f {
   
   var trap = vec3f(0.5);
     
-  for(var i = 0; i < 100; i++){
+  for(var i = 0; i < 50; i++){
     let pos = rayOrigin + t * rayDirection; // for some reason, rayDirection is acting like it does not exist
 
     let mapResult = map(pos, trap);
     trap = mapResult.xyz;
     var h: f32 = mapResult[3];
 
-    if ( h < 0.0003 ) { break; }
+    if ( h < 0.0004 ) { break; }
     
     t += h;
     if ( t > tmax ) {
@@ -210,7 +210,7 @@ fn castRay(rayOrigin: vec3f, rayDirection: vec3f) -> vec4f {
 
 @fragment
 fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
-  let freq = 50.0 + timeBuffer.time * 3;
+  let freq = 50.0 + timeBuffer.time;
 
   var cam_pos = vec3f(
     3.0 * cos(0.1 * 0.125 * freq) * sin(0.1 * 0.5 * freq),
@@ -218,10 +218,10 @@ fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
     2.0 * cos(0.1 * 0.5 * freq)
   );
 
-  cam_pos *= 1.1;
+  cam_pos *= 3;
 
   let cam_target = vec3f(0.0);
-  let fov = 110.0 * 3.141592 / 180.0; 
+  let fov = 90.0 * 3.141592 / 180.0; 
   let h = 1.0 * fov;
   
   let cam_ww = normalize(cam_target - cam_pos);
@@ -230,11 +230,31 @@ fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
     
   // the code already gives you acces to the basePos: vec2f so there is no need to use it as x
   let ro = cam_pos;
-  let rd = normalize(basePos.x * h * cam_uu + basePos.y * h * cam_vv + cam_ww - ro); // no idea
 
+  var t = 0.0;
+  var finalRayPos = vec3f(0.0);
+  // for( var i = 0.0; i < 4; i += 1.01){
+  //   // let width_modifier : f32 = (i % 2) * 2.0 - 1.0;
+  //   // let height_modifier : f32  = (i / 2) * 2.0 - 1.0;
+
+  //   let newX = basePos.x + ((i % 2) * 2.0 - 1.0) / (1024.0 * 3);
+  //   let newY = basePos.y + ((i / 2) * 2.0 - 1.0) / (1024.0 * 3);
+
+  //   // let pos = vec2f(basePos.x + width_modifier, basePos.y + height_modifier);
+  //   let rd = normalize(newX * h * cam_uu + newY* h * cam_vv + cam_ww - ro); // no idea
+  //   let rayCastResult = castRay(cam_pos, rd);
+  //   finalRayPos += rayCastResult.xyz;
+  //   t += rayCastResult[3]; // returning a uniform value
+  // }
+
+  let rd = normalize(basePos.x * h * cam_uu + basePos.y * h * cam_vv + cam_ww - ro); // no idea
   let rayCastResult = castRay(cam_pos, rd);
-  let finalRayPos = rayCastResult.xyz;
-  let t = rayCastResult[3]; // returning a uniform value
+  finalRayPos += rayCastResult.xyz;
+  t += rayCastResult[3]; 
+
+
+  // t /= 4.0;
+  // finalRayPos /= 4.0;
 
   if ( t > 0.0 ) {
     // coloring the ray
