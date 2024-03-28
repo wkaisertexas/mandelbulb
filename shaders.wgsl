@@ -15,7 +15,13 @@ struct TimeBuffer {
   time : f32
 };
 
+struct RotationBuffer {
+  x : f32,
+  y : f32,
+};
+
 @binding(0) @group(0)var<uniform> timeBuffer : TimeBuffer;
+@binding(1) @group(0)var<uniform> rotationBuffer : RotationBuffer;
 
 fn getNormal(pos: vec3f) -> vec3f {
   let h = 0.0000001;
@@ -36,16 +42,45 @@ fn hash(p: f32) -> f32 {
   return fract(sin(dot(vec2f(p), vec2f(12.9898, 78.233))) * 43758.5453);    
 }
 
+fn rotateX(vec: vec3<f32>, angle: f32) -> vec3<f32> {
+    let cosAngle = cos(angle);
+    let sinAngle = sin(angle);
+    let rotMatrix = mat3x3<f32>(
+        vec3<f32>(1.0, 0.0, 0.0),
+        vec3<f32>(0.0, cosAngle, -sinAngle),
+        vec3<f32>(0.0, sinAngle, cosAngle)
+    );
+    return rotMatrix * vec;
+}
+
+// Function to rotate a 3D vector around the y-axis
+fn rotateY(vec: vec3<f32>, angle: f32) -> vec3<f32> {
+    let cosAngle = cos(angle);
+    let sinAngle = sin(angle);
+    let rotMatrix = mat3x3<f32>(
+        vec3<f32>(cosAngle, 0.0, sinAngle),
+        vec3<f32>(0.0, 1.0, 0.0),
+        vec3<f32>(-sinAngle, 0.0, cosAngle)
+    );
+    return rotMatrix * vec;
+}
+
+fn rotate_point(point: vec3f, angle: RotationBuffer) -> vec3f {
+  return rotateX(rotateY(point, angle.y), angle.x);
+}
+
 fn map(pos: vec3f, in_out: vec3f) -> vec4f {
+  let rotatedPos = rotate_point(pos, rotationBuffer);
+
   let thresh = length(pos) - 1.2;
 
   if(thresh > 0.2) {
      return vec4f(in_out, thresh);
   }
 
-  let power = 8.0 + 2.0 * sin(0.15 * timeBuffer.time);
-  var z = pos;
-  var c = pos;
+  let power = 8.0 + 2.0 * sin(0.25 * timeBuffer.time);
+  var z = rotatedPos;
+  var c = rotatedPos;
 
   var trap = vec3f(1e20);
 
@@ -175,13 +210,15 @@ fn castRay(rayOrigin: vec3f, rayDirection: vec3f) -> vec4f {
 
 @fragment
 fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
-  let freq = 50.0 + timeBuffer.time;
+  let freq = 50.0 + timeBuffer.time * 3;
 
-  let cam_pos = vec3f(
+  var cam_pos = vec3f(
     3.0 * cos(0.1 * 0.125 * freq) * sin(0.1 * 0.5 * freq),
     sin(0.1 * freq),
     2.0 * cos(0.1 * 0.5 * freq)
   );
+
+  cam_pos *= 1.1;
 
   let cam_target = vec3f(0.0);
   let fov = 110.0 * 3.141592 / 180.0; 
@@ -194,19 +231,10 @@ fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
   // the code already gives you acces to the basePos: vec2f so there is no need to use it as x
   let ro = cam_pos;
   let rd = normalize(basePos.x * h * cam_uu + basePos.y * h * cam_vv + cam_ww - ro); // no idea
-  
-  // return vec4f(abs(rd), 1); // ray direction is close to uniform
-  // return vec4f(rd, 1);
 
   let rayCastResult = castRay(cam_pos, rd);
   let finalRayPos = rayCastResult.xyz;
   let t = rayCastResult[3]; // returning a uniform value
-
-  //return vec4f(rd, 1);
-
-  // return vec4f(t / 100 , 0.0, 0.0, 1);
-
-  //return vec4f(finalRayPos, 1);
 
   if ( t > 0.0 ) {
     // coloring the ray
