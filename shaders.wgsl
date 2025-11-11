@@ -228,7 +228,7 @@ fn fragmentShader(@location(0) basePos: vec2f) -> @location(0) vec4f {
   let cam_uu = normalize(cross(vec3f(0.0, 1.0, 0.0), cam_ww));
   let cam_vv = normalize(cross(cam_ww, cam_uu));
     
-  // the code already gives you acces to the basePos: vec2f so there is no need to use it as x
+  // the code already gives you access to the basePos: vec2f so there is no need to use it as x
   let ro = cam_pos;
 
   var t = 0.0;
